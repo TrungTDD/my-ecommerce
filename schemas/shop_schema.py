@@ -2,6 +2,7 @@ import enum
 from datetime import datetime
 
 from mongoengine import (
+    BooleanField,
     DateTimeField,
     Document,
     EmailField,
@@ -23,5 +24,7 @@ class ShopSchema(Document):
     created_at = DateTimeField(default=datetime.now)
     updated_at = DateTimeField(default=datetime.now)
     status = EnumField(enum=StatusEnum, default=StatusEnum.ACTIVE)
+    verify = BooleanField(default=False)
     roles = ListField()
-    meta = {"collection": "shop_collection", "db_alias": "shop-db-alias"}
+
+    meta = {"collection": "shops", "db_alias": "shop-db-alias"}

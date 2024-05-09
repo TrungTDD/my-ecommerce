@@ -1,24 +1,18 @@
 from fastapi import APIRouter
-from fastapi.exceptions import HTTPException
-from mongoengine.errors import ValidationError
 
+from core.constants import StatusCode
 from db.connection import ShopConnectionDepend
-from schemas.shop_schema import ShopSchema
+from models.shop_model import ShopCreateRequest, ShopCreateResponse
+from services.shop_service import shop_service
 
 router = APIRouter()
 
 
-@router.get("/")
-def get_shop(shop_client: ShopConnectionDepend):
-    try:
-        shop = ShopSchema(
-            name="test shop",
-            email="trungtdd@aagmail.com",
-            password="123123",
-            roles=["advcs"],
-        )
-        shop.save()
-    except ValidationError as e:
-        print(e)
-        raise HTTPException(400, e.message)
-    return {"Hello": "World"}
+@router.post(
+    "/register", status_code=StatusCode.CREATED, response_model=ShopCreateResponse
+)
+def create_shop(shop_client: ShopConnectionDepend, request: ShopCreateRequest):
+    response = shop_service.signup(
+        name=request.name, email=request.email, password=request.password
+    )
+    return response

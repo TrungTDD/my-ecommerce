@@ -9,6 +9,9 @@ pydantic = "*"
 pymongo = "*"
 mongoengine = "*"
 pre-commit = "*"
+python-jose = {extras = ["cryptography"], version = "*"}
+bcrypt = "==4.0.1"
+passlib = {extras = ["bcrypt"], version = "*"}
 
 [dev-packages]
 
