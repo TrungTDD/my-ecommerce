@@ -10,6 +10,7 @@ class ShopCreateRequest(BaseModel):
 
 
 class ShopCreateResponse(BaseModel):
+    id: str
     name: str
     email: EmailStr
     tokens: TokenResponse

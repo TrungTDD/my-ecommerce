@@ -15,7 +15,7 @@ def get_shop_db():
         yield connect(alias="shop-db-alias", host="mongodb://localhost:27017/shop_dev")
     except ServerSelectionTimeoutError as e:
         logger.error("Connection failure: %s", e)
-        raise HTTPException("Could not connect to Database")
+        raise e
     finally:
         logger.debug("Database connection closed")
         disconnect(alias="shop-db-alias")

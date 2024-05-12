@@ -1,11 +1,12 @@
 from fastapi import APIRouter
 
 from core.constants import StatusCode
+from core.route_handler import RouteHandler
 from db.connection import ShopConnectionDepend
 from models.shop_model import ShopCreateRequest, ShopCreateResponse
 from services.shop_service import shop_service
 
-router = APIRouter()
+router = APIRouter(route_class=RouteHandler)
 
 
 @router.post(

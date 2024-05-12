@@ -3,7 +3,7 @@ import secrets
 
 from mongoengine.errors import NotUniqueError, ValidationError
 
-from core.exceptions import BadRequestException
+from core.exceptions import BadRequestException, InternalException
 from models.shop_model import ShopCreateResponse
 from models.token_model import TokenResponse
 from schemas.shop_schema import ShopSchema
@@ -68,7 +68,9 @@ class ShopService:
 
         token = TokenResponse(access_token=access_token, refresh_token=refresh_token)
 
-        return ShopCreateResponse(name=name, email=email, tokens=token)
+        return ShopCreateResponse(
+            id=str(created_shop["id"]), name=name, email=email, tokens=token
+        )
 
 
 shop_service = ShopService()
