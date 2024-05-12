@@ -14,3 +14,12 @@ class ShopCreateResponse(BaseModel):
     name: str
     email: EmailStr
     tokens: TokenResponse
+
+
+class ShopLoginRequest(BaseModel):
+    email: EmailStr
+    password: str
+
+
+class ShopLoginResponse(BaseModel):
+    tokens: TokenResponse

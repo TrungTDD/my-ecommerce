@@ -11,13 +11,13 @@ from models.shop_model import (
 )
 from services.auth_service import auth_service
 
-router = APIRouter(route_class=AuthenticationRouteHandler)
+router = APIRouter()
 
 
 @router.post(
     "/register", status_code=StatusCode.CREATED, response_model=ShopCreateResponse
 )
-def create_shop(shop_client: ShopConnectionDepend, request: ShopCreateRequest):
+def register_shop(shop_client: ShopConnectionDepend, request: ShopCreateRequest):
     response = auth_service.signup(
         name=request.name, email=request.email, password=request.password
     )

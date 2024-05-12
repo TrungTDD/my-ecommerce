@@ -1,8 +1,11 @@
-from fastapi import APIRouter
+from fastapi import APIRouter, Depends
+from fastapi.security import HTTPBearer
 
-from routes import shop_router
+from core.route_handler import AuthenticationRouteHandler
+from routes import auth_router
 
-router = APIRouter()
+reusable_oauth2 = HTTPBearer(scheme_name="Authorization")
+router = APIRouter(route_class=AuthenticationRouteHandler)
 
 
 @router.get("/")
@@ -10,4 +13,9 @@ def hello():
     return {"hello": "world"}
 
 
-router.include_router(shop_router.router, prefix="/shop", tags="shop")
+router.include_router(
+    auth_router.router,
+    prefix="/auth",
+    tags="auth",
+    dependencies=[Depends(reusable_oauth2)],
+)
